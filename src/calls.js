@@ -91,6 +91,12 @@ async function finishConfirmed(business, booking, call) {
     manage_url: `${base}/b/${business.slug}/manage?key=${business.owner_key}`,
     transcript_summary: booking.transcript_summary, conversation_id: booking.conversation_id,
   });
+  // Ready-written emails too, so confirmations go out even before a calendar step exists in Make.
+  const people = `${booking.group_size} ${Number(booking.group_size) === 1 ? "person" : "people"}`;
+  if (booking.customer_email) await sendEmail({ to: booking.customer_email, subject: `You're booked: ${booking.service} at ${business.name}`,
+    body: `Hi ${booking.customer_name},\n\nYou're booked for ${booking.service} (${people}) on ${booking.readable_time}.\n\n${voice_url ? `Hear your confirmation from Juno: ${voice_url}\n\n` : ""}Need to cancel? ${base}/cancel/${cancel_token}\n\nSee you soon,\n${business.name}` });
+  if (business.owner_email) await sendEmail({ to: business.owner_email, subject: `New booking: ${booking.customer_name}, ${booking.service}, ${booking.readable_time}`,
+    body: `${booking.customer_name} booked ${booking.service} for ${people} on ${booking.readable_time}.\n\nPhone: ${booking.customer_phone || "not given"}\nEmail: ${booking.customer_email}\nNotes: ${booking.notes || "none"}\n\nCopilot's prep notes:\n${(r.plan_steps || []).map((x) => `- ${x}`).join("\n") || "- none"}\n\nManage bookings: ${base}/b/${business.slug}/manage?key=${business.owner_key}` });
   return db.updateBooking(booking.id, { forwarded: sent });
 }
 
