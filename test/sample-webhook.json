@@ -1,0 +1,36 @@
+{
+  "type": "post_call_transcription",
+  "event_timestamp": 1890000000,
+  "data": {
+    "agent_id": "agent_example",
+    "conversation_id": "conv_sample_001",
+    "status": "done",
+    "transcript": [
+      { "role": "agent", "message": "Hi, thanks for calling Pixel Palace! I'm Juno, an AI receptionist. What would you like to book today?" },
+      { "role": "user", "message": "A party room for my brother's tenth birthday, about twelve kids." },
+      { "role": "agent", "message": "Love it. What day and time?" },
+      { "role": "user", "message": "Saturday June 15th at 3. Oh, and is there parking?" },
+      { "role": "agent", "message": "Let me check that. Saturday, June 15th at 3 PM is free! I'm not sure about parking, but the team will get back to you by email. Can I get your full name?" },
+      { "role": "user", "message": "Maya Chen, maya.chen@example.com, 503 555 0142." },
+      { "role": "agent", "message": "So that's a Party room for 12 on Saturday, June 15th at 3 PM for Maya Chen. Does that all sound right?" },
+      { "role": "user", "message": "Yes!" }
+    ],
+    "analysis": {
+      "call_successful": "success",
+      "transcript_summary": "Maya Chen booked a party room for 12 for her brother's 10th birthday on Saturday June 15 at 3 PM, and asked about parking.",
+      "data_collection_results": {
+        "customer_name": { "value": "Maya Chen" },
+        "customer_email": { "value": "maya.chen@example.com" },
+        "customer_phone": { "value": "5035550142" },
+        "service": { "value": "Party room" },
+        "group_size": { "value": 12 },
+        "start_time": { "value": "2030-06-15T15:00:00" },
+        "notes": { "value": "Brother's 10th birthday." },
+        "booking_confirmed": { "value": true }
+      }
+    },
+    "conversation_initiation_client_data": {
+      "dynamic_variables": { "business_id": "REPLACE_WITH_A_BUSINESS_ID" }
+    }
+  }
+}
