@@ -1,0 +1,21 @@
+{
+  "name": "juno",
+  "version": "1.0.0",
+  "description": "Juno: an AI receptionist any business can switch on. ElevenLabs voice, GitHub Copilot manager, Make.com delivery.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/*.test.js",
+    "test:webhook": "node test/post-webhook.js"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "dependencies": {
+    "@github/copilot-sdk": "^1.0.34",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.0",
+    "pg": "^8.16.0"
+  }
+}
