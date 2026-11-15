@@ -12,7 +12,8 @@ import { managerTools } from "./tools.js";
 import { validateProfile, describeHours, describeServices, describeFaq, ValidationError } from "./validate.js";
 import { spoken, parseNaive } from "./time.js";
 
-const MODEL = process.env.COPILOT_MODEL || "gpt-5";
+// Empty = Copilot picks its default model, so a retired model name can never break Juno.
+const MODEL = process.env.COPILOT_MODEL || "";
 const TIMEOUT_MS = 30000;
 
 let client = null;
@@ -46,7 +47,7 @@ export async function runCopilot({ system, prompt, tools = [], timeoutMs = TIMEO
   let session;
   try {
     session = await c.createSession({
-      model: MODEL, systemMessage: { mode: "replace", content: system }, tools: wrapped,
+      ...(MODEL ? { model: MODEL } : {}), systemMessage: { mode: "replace", content: system }, tools: wrapped,
       availableTools: tools.map((t) => `custom:${t.name}`), workingDirectory: SANDBOX,
       onPermissionRequest,
     });
